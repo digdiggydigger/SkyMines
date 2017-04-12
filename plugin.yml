@@ -6,3 +6,12 @@ commands:
    command:
       description: Blank description.
       usage: /<command>
+   command:
+      description: Blank description.
+      usage: /<command>
+   command:
+      description: Blank description.
+      usage: /<command>
+   command:
+      description: Blank description.
+      usage: /<command>
