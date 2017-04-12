@@ -5,12 +5,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MainClass extends JavaPlugin {
+import me.LavaBa11.Mines.MineListener;
+
+public class SkyMines extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
 			getLogger().info("_____ has been enabled and ready to go!");
-			new ListenerClass(this); {
+			new MineListener(this); {
 	
 			}
 	}
