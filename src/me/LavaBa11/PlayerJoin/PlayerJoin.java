@@ -1,9 +1,5 @@
 package me.LavaBa11.PlayerJoin;
 
-<<<<<<< Updated upstream
-public class PlayerJoin {
-=======
-<<<<<<< HEAD
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,9 +25,4 @@ public class PlayerJoin implements Listener {
 		PacketPlayOutTitle subtitle = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, ChatSerializer.a("{\"text\":\"§7§lWelcome!\"}"), 10, 1000, 10);
 		((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(subtitle);
 	}
-=======
-public class PlayerJoin {
->>>>>>> origin/master
->>>>>>> Stashed changes
-	
 }
