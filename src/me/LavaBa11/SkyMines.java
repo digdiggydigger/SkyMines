@@ -23,7 +23,7 @@ public class SkyMines extends JavaPlugin {
 	public void onDisable() {
 			getLogger().info("SkyMines has been disabled safley and securley");
 
-}
+	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
