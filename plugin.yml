@@ -1,7 +1,7 @@
-name: SkyMines
-main: me.LavaBa11.SkyMines
+name: 
+main: me.LavaBa11.
 version: 1.0
-author: LavaBa11, Cloaking_Ocean
+author: LavaBa11
 commands:
    command:
       description: Blank description.
