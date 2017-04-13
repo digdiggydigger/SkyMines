@@ -11,17 +11,14 @@ public class SkyMines extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-			getLogger().info("_____ has been enabled and ready to go!");
-			new MineListener(this); {
-	
-			}
+		getLogger().info("_____ has been enabled and ready to go!");
+		new MineListener(this); 
 	}
 			
 	@Override
 	public void onDisable() {
-			getLogger().info("_____ has been disabled safley and secruley");
-
-}
+		getLogger().info("_____ has been disabled safley and securely");
+	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
