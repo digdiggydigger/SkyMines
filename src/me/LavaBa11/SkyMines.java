@@ -17,6 +17,7 @@ public class SkyMines extends JavaPlugin {
 			new PlayerJoin(this);
 	
 			}
+			//comment
 	}
 			
 	@Override
