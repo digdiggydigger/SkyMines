@@ -2,6 +2,7 @@ name:
 main: me.LavaBa11.
 version: 1.0
 author: LavaBa11
+depend: [WorldGuard]
 commands:
    command:
       description: Blank description.
