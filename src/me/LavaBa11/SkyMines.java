@@ -1,28 +1,47 @@
 package me.LavaBa11;
 
+import java.util.logging.Logger;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import me.LavaBa11.Mines.MineListener;
 import me.LavaBa11.PlayerJoin.PlayerJoin;
 
 public class SkyMines extends JavaPlugin {
 
+	public static Logger logger;
+	
+	public static WorldGuardPlugin wg;
+	
 	@Override
 	public void onEnable() {
-			getLogger().info("SkyMines has been enabled and ready to go!");
-			new MineListener(this); {
-			new PlayerJoin(this);
-	
-			}
-			//comment
+		logger = getLogger();
+		
+		wg = getWorldGuard();
+		
+		if (wg == null) { //Shouldn't be null because we depend on WorldGuard in plugin.yml. But if it's removed, easier to have this here to catch errors.
+			logger.severe("Couldn't find WorldGuard dependency. Disabling Plugin");
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
+		
+		getLogger().info("SkyMines has been enabled and ready to go!");
+		new MineListener(this);
+		new PlayerJoin(this);
+		//Removed Random Brackets
+		//Changed Odd Indentation
 	}
 			
 	@Override
 	public void onDisable() {
-			getLogger().info("SkyMines has been disabled safley and securley");
+			getLogger().info("SkyMines has been disabled safely and securely");
 
 	}
 	
@@ -38,6 +57,17 @@ public class SkyMines extends JavaPlugin {
 		
 		return false;	
 		
+	}
+	
+	private WorldGuardPlugin getWorldGuard() {
+	    Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+
+	    // WorldGuard may not be loaded
+	    if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+	        return null; // Maybe you want throw an exception instead
+	    }
+
+	    return (WorldGuardPlugin) plugin;
 	}
 	
 }
