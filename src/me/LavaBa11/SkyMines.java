@@ -11,11 +11,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.sk89q.worldguard.bukkit.RegionContainer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import me.LavaBa11.Messages.Help;
 import me.LavaBa11.Mines.MineListener;
+import me.LavaBa11.Mines.MineLoader;
+import me.LavaBa11.Mines.MineRegenerator;
 import me.LavaBa11.PlayerJoin.PlayerJoin;
 import me.LavaBa11.Rankup.PlayerRankup;
 
@@ -24,7 +25,6 @@ public class SkyMines extends JavaPlugin {
 	public static Logger logger;
 	
 	public static WorldGuardPlugin wg;
-	public static RegionContainer rc;
 	
 	public static String prefix = "§8(§9SkyMines§8)§7";
 	
@@ -40,9 +40,14 @@ public class SkyMines extends JavaPlugin {
 			return;
 		}
 		
-		rc = getWorldGuard().getRegionContainer();
-		
 		logger.info("SkyMines has been enabled and ready to go!");
+		new MineLoader(); //Loads the mines/regions.
+		
+		long tenMinutes = 
+				(20) * //The measurement is in Minecraft game ticks, and ticks run 20 times a second. So, we times how many seconds we want to wait by 20.
+				((60) * (10)); //This determines how many seconds for 10 minutes.
+		new MineRegenerator().runTaskTimer(this, 0L, tenMinutes); //Regenerates the ores
+		
 		new MineListener(this);
 		new PlayerJoin(this);
 		new Help(this);
