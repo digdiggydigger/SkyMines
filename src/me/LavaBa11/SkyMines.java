@@ -91,8 +91,8 @@ public class SkyMines extends JavaPlugin {
 					return false;
 				}
 				
-				if (player.getInventory().contains(Material.IRON_INGOT)) {
-						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT, stackAmount));
+				if (player.getInventory().contains(Material.COAL)) {
+						player.getInventory().removeItem(new ItemStack(Material.COAL, stackAmount));
 						int cashAmount = stackAmount * 2;
 						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
 	//					player.updateInventory();
