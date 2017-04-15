@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.sk89q.worldguard.bukkit.RegionContainer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import me.LavaBa11.Mines.MineListener;
@@ -19,6 +20,7 @@ public class SkyMines extends JavaPlugin {
 	public static Logger logger;
 	
 	public static WorldGuardPlugin wg;
+	public static RegionContainer rc;
 	
 	@Override
 	public void onEnable() {
@@ -32,17 +34,16 @@ public class SkyMines extends JavaPlugin {
 			return;
 		}
 		
-		getLogger().info("SkyMines has been enabled and ready to go!");
+		rc = getWorldGuard().getRegionContainer();
+		
+		logger.info("SkyMines has been enabled and ready to go!");
 		new MineListener(this);
 		new PlayerJoin(this);
-		//Removed Random Brackets
-		//Changed Odd Indentation
 	}
 			
 	@Override
 	public void onDisable() {
-			getLogger().info("SkyMines has been disabled safely and securely");
-
+		logger.info("SkyMines has been disabled safely and securely");
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -55,7 +56,7 @@ public class SkyMines extends JavaPlugin {
 			
 		}
 		
-		return false;	
+		return false;
 		
 	}
 	
