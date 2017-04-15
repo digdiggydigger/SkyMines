@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import me.LavaBa11.BlockManip.OreDrops;
 import me.LavaBa11.Messages.Help;
 import me.LavaBa11.Mines.MineListener;
 import me.LavaBa11.Mines.MineLoader;
@@ -52,6 +53,7 @@ public class SkyMines extends JavaPlugin {
 		new PlayerJoin(this);
 		new Help(this);
 		new PlayerRankup(this);
+		new OreDrops(this);
 	}
 			
 	@Override
