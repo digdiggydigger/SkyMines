@@ -9,6 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.BlockVector2D;
+import com.sk89q.worldedit.regions.Polygonal2DRegion;
 import com.sk89q.worldguard.protection.regions.GlobalProtectedRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
@@ -25,6 +26,8 @@ public class MineRegenerator extends BukkitRunnable{
 	private static final double percentOfEmerald = .05;
 	
 	
+	
+	
 	private static final double percentOfLapis = .10;
 	
 	@Override
@@ -36,12 +39,11 @@ public class MineRegenerator extends BukkitRunnable{
 			    ProtectedPolygonalRegion polygon = (ProtectedPolygonalRegion) region;
 			    List<BlockVector2D> points = polygon.getPoints();
 			    
-			    for (BlockVector2D point : points) {
-			    	for (int y = polygon.getMinimumPoint().getBlockY(); y < polygon.getMaximumPoint().getBlockY(); y++) {
-			    		blocks.add(new Location(Bukkit.getServer().getWorld("world"), point.getBlockX(), y, point.getBlockZ())); //TODO: Replace with name of world used on server.
-			    	}
-			    }
-			    
+//			    Polygonal2DRegion weRegion = new Polygonal2DRegion(
+//			    		Bukkit.getServer().getWorld("world"), 
+//			    		polygon.getPoints(), 
+//			    		polygon.getMinimumPoint().getBlockY(), 
+//			    		polygon.getMaximumPoint().getBlockY());
 			}else if (region instanceof ProtectedCuboidRegion) {
 				ProtectedCuboidRegion cuboidRegion = (ProtectedCuboidRegion) region;
 				BlockVector max = cuboidRegion.getMaximumPoint();
@@ -67,8 +69,7 @@ public class MineRegenerator extends BukkitRunnable{
 				
 				
 			}else if (region instanceof GlobalProtectedRegion) {
-				SkyMines.logger.severe("A global region has been assigned for a mine. This is an error! Cancelling Thread");
-				cancel();
+				SkyMines.logger.severe("A global region has been assigned for a mine. This is an error!");
 			}
 		}
 	}
