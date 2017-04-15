@@ -22,7 +22,6 @@ public class MineListener implements Listener {
 		Block b = e.getBlock();
 		b.setType(Material.AIR);
 		e.setCancelled(true);
-		
 	}
 	
 }
