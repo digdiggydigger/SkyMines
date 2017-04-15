@@ -72,13 +72,24 @@ public class SkyMines extends JavaPlugin {
 		
 		if (cmd.getName().equalsIgnoreCase("coalsell") && sender instanceof Player) {
 				Player player = (Player) sender;
+				if (args[0] == null) {
+					player.sendMessage("§cIncorrect Usage: §9/coalsell <amount/'all'>");
+				}
+
+				String amount = args [0];
+					
+				int convertedAmount = Integer.parseInt(amount);
 				
 				ItemStack ii = new ItemStack(Material.IRON_INGOT);
-				if (player.getInventory().contains(ii)) {
+				if (player.getInventory().contains(Material.IRON_INGOT)) {
 					if (ii.getAmount() <= 64) {
-						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT));
-						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " 2");
+						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT, convertedAmount));
+						int cashAmount = convertedAmount * 2;
+						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
 	//					player.updateInventory();
+				} 
+				else {
+					player.sendMessage("§6You do not have any ingots to sell!");
 				}
 			}
 				return true;
