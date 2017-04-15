@@ -80,15 +80,17 @@ public class SkyMines extends JavaPlugin {
 
 				String amount = args [0];
 					
-				// int convertedAmount = Integer.parseInt(amount);
+				int convertedAmount = Integer.parseInt(amount);
 				
 				int stackAmount = 0;
-				for(ItemStack is : player.getInventory().all(Material.IRON_INGOT).values())
-				{
-					stackAmount=stackAmount+is.getAmount();
+				for(ItemStack is : player.getInventory().all(Material.COAL).values()) {
+					stackAmount = stackAmount + is.getAmount();
+				}
+				if (stackAmount < convertedAmount) {
+					player.sendMessage("§cYou don't have enough coal to sell!");
+					return false;
 				}
 				
-				ItemStack ii = new ItemStack(Material.IRON_INGOT);
 				if (player.getInventory().contains(Material.IRON_INGOT)) {
 						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT, stackAmount));
 						int cashAmount = stackAmount * 2;
