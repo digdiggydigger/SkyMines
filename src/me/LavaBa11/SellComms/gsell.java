@@ -1,5 +1,7 @@
 package me.LavaBa11.SellComms;
 
-public class gsell {
+import org.bukkit.event.Listener;
+
+public class gsell implements Listener {
 
 }

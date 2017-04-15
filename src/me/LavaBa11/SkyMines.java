@@ -27,6 +27,8 @@ public class SkyMines extends JavaPlugin {
 	
 	public static WorldGuardPlugin wg;
 	
+	public static int all;
+	
 	public static String prefix = "§8(§9SkyMines§8)§7";
 	
 	@Override
@@ -78,13 +80,16 @@ public class SkyMines extends JavaPlugin {
 
 				String amount = args [0];
 					
-				int convertedAmount = Integer.parseInt(amount);
+				int all = Integer.parseInt(amount);
+				if (args[0].equalsIgnoreCase("all")) {
+					all = 2304;
+				}
 				
 				ItemStack ii = new ItemStack(Material.IRON_INGOT);
 				if (player.getInventory().contains(Material.IRON_INGOT)) {
 					if (ii.getAmount() <= 64) {
-						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT, convertedAmount));
-						int cashAmount = convertedAmount * 2;
+						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT, all));
+						int cashAmount = all * 2;
 						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
 	//					player.updateInventory();
 				} 
