@@ -44,6 +44,7 @@ public class SkyMines extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		logger.info("SkyMines has been disabled safely and securely");
+		//Changed Odd
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
