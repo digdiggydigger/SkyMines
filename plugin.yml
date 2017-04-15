@@ -1,15 +1,15 @@
-name: 
-main: me.LavaBa11.
+name: SkyMines
+main: me.LavaBa11.SkyMines
 version: 1.0
-author: LavaBa11
-depend: [WorldGuard]
+author: LavaBa11, Cloaking_Ocean
 commands:
-   command:
-      description: Blank description.
+   skymines:
+      description: SkyMines Help.
       usage: /<command>
-   command:
-      description: Blank description.
+   coalsell:
+      description: Sell Coal.
       usage: /<command>
+      aliases: [csell, sellc]
    command:
       description: Blank description.
       usage: /<command>

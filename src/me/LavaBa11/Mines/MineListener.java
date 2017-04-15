@@ -19,6 +19,7 @@ public class MineListener implements Listener {
 	public void onMineEvent(BlockBreakEvent e) {
 		
 		Player player = e.getPlayer();
+		player.sendMessage("");
 		Block b = e.getBlock();
 		b.setType(Material.AIR);
 		e.setCancelled(true);

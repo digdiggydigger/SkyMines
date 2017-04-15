@@ -3,17 +3,21 @@ package me.LavaBa11;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.RegionContainer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import me.LavaBa11.Messages.Help;
 import me.LavaBa11.Mines.MineListener;
 import me.LavaBa11.PlayerJoin.PlayerJoin;
+import me.LavaBa11.Rankup.PlayerRankup;
 
 public class SkyMines extends JavaPlugin {
 
@@ -21,6 +25,8 @@ public class SkyMines extends JavaPlugin {
 	
 	public static WorldGuardPlugin wg;
 	public static RegionContainer rc;
+	
+	public static String prefix = "§8(§9SkyMines§8)§7";
 	
 	@Override
 	public void onEnable() {
@@ -39,6 +45,8 @@ public class SkyMines extends JavaPlugin {
 		logger.info("SkyMines has been enabled and ready to go!");
 		new MineListener(this);
 		new PlayerJoin(this);
+		new Help(this);
+		new PlayerRankup(this);
 	}
 			
 	@Override
@@ -49,12 +57,24 @@ public class SkyMines extends JavaPlugin {
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		if (cmd.getName().equalsIgnoreCase("COMMAND1") && sender instanceof Player) {
-			
-			Player player = (Player) sender;
-			
+		if (cmd.getName().equalsIgnoreCase("skymines") || (cmd.getName().equalsIgnoreCase("skymine")) && sender instanceof Player) {
+			Player player = (Player) sender;			
+			Help.helpCommand(player);
 			return true;
-			
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("coalsell") && sender instanceof Player) {
+				Player player = (Player) sender;
+				
+				ItemStack ii = new ItemStack(Material.IRON_INGOT);
+				if (player.getInventory().contains(ii)) {
+					if (ii.getAmount() <= 64) {
+						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT));
+						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " 2");
+	//					player.updateInventory();
+				}
+			}
+				return true;
 		}
 		
 		return false;
