@@ -61,20 +61,6 @@ public class OreDrops implements Listener {
 			e.getBlock().setType(Material.AIR);
 			ItemStack emerald = new ItemStack(Material.EMERALD);
 			player.getInventory().addItem(emerald);
-		}
-			
+		}		
 	}
-	
-//	private ArrayList<Material> MineOres(){ 
-//		ArrayList<Material> ma = new ArrayList<Material>();
-//		ma.add(Material.COAL_ORE);
-//		ma.add(Material.IRON_ORE);
-//		ma.add(Material.LAPIS_ORE);
-//		ma.add(Material.GOLD_ORE);
-//		ma.add(Material.DIAMOND_ORE);
-//		ma.add(Material.EMERALD_ORE);
-//		return ma;
-//	}
-	
-
 }
