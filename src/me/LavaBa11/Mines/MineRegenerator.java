@@ -1,10 +1,14 @@
 package me.LavaBa11.Mines;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.sk89q.worldedit.BlockVector;
@@ -27,10 +31,17 @@ public class MineRegenerator extends BukkitRunnable{
 	
 	private static final double percentOfLapis = .10;
 	
+	private static boolean hasBeenTwentyMinutes = false;
+	
 	@Override
 	public void run() {
+		
+		int mineIndex = 0;
 		for (ProtectedRegion region : MineLoader.mines) {
-			List<Location> blocks = new ArrayList<Location>();
+			if (!hasBeenTwentyMinutes) {
+				if (mineIndex == 4 || mineIndex == 5) continue;
+			}
+			List<Block> blocks = new ArrayList<Block>();
 			
 			if (region instanceof ProtectedPolygonalRegion) {
 			    ProtectedPolygonalRegion polygon = (ProtectedPolygonalRegion) region;
@@ -38,7 +49,8 @@ public class MineRegenerator extends BukkitRunnable{
 			    
 			    for (BlockVector2D point : points) {
 			    	for (int y = polygon.getMinimumPoint().getBlockY(); y < polygon.getMaximumPoint().getBlockY(); y++) {
-			    		blocks.add(new Location(Bukkit.getServer().getWorld("world"), point.getBlockX(), y, point.getBlockZ())); //TODO: Replace with name of world used on server.
+			    		World world = Bukkit.getServer().getWorld("world");
+			    		blocks.add(world.getBlockAt(new Location(world, point.getBlockX(), y, point.getBlockZ()))); //TODO: Replace with name of world used on server.
 			    	}
 			    }
 			    
@@ -59,7 +71,8 @@ public class MineRegenerator extends BukkitRunnable{
 				for (int x = minX; x < maxX; x++) {
 					for (int y = minY; y < maxY; y++) {
 						for (int z = minZ; z < maxZ; z++) {
-							blocks.add(new Location(Bukkit.getServer().getWorld("world"), x, y, z)); //TODO: Replace with name of world used on server.
+							World world = Bukkit.getServer().getWorld("world");
+							blocks.add(world.getBlockAt(new Location(world, x, y, z))); //TODO: Replace with name of world used on server.
 						}
 					}
 				}
@@ -69,7 +82,78 @@ public class MineRegenerator extends BukkitRunnable{
 			}else if (region instanceof GlobalProtectedRegion) {
 				SkyMines.logger.severe("A global region has been assigned for a mine. This is an error! Cancelling Thread");
 				cancel();
+				return;
 			}
+			
+			int amount = blocks.size();
+			
+			ArrayList<Material> ores = new ArrayList<Material>();
+			
+			int coalBlocks = (int) ((double) amount * percentOfCoal);
+			int ironBlocks = (int) ((double) amount * percentOfIron);
+			int goldBlocks = (int) ((double) amount * percentOfGold);
+			int diamondBlocks = (int) ((double) amount * percentOfDiamond);
+			int emeraldBlocks = (int) ((double) amount * percentOfEmerald);
+			
+			int totalBlocks = coalBlocks + ironBlocks + goldBlocks + diamondBlocks + emeraldBlocks;
+			
+			int leftOver = 0;
+			if (totalBlocks < amount) {
+				leftOver = amount-totalBlocks;
+				SkyMines.logger.info("TotalBlocks is less than amount. Add " + leftOver + " coalOres");
+			}else if (totalBlocks > amount) {
+				int difference = totalBlocks - amount;
+				SkyMines.logger.info("Odd Configuration For MineRegenerator. Contact Developer. Difference between totalBlocks and amount: " + difference);
+				
+				coalBlocks -= difference;
+			}else{
+				SkyMines.logger.info("TotalBlocks is the same size as amount");
+			}
+			
+			for (int i = 0; i < coalBlocks; i++) {
+				ores.add(Material.COAL_ORE);
+			}
+			
+			for (int i = 0; i < ironBlocks; i++) {
+				ores.add(Material.IRON_ORE);
+			}
+			
+			for (int i = 0; i < goldBlocks; i++) {
+				ores.add(Material.GOLD_ORE);
+			}
+			
+			for (int i = 0; i < diamondBlocks; i++) {
+				ores.add(Material.DIAMOND_ORE);
+			}
+			
+			for (int i = 0; i < emeraldBlocks; i++) {
+				ores.add(Material.EMERALD_ORE);
+			}
+			
+			Collections.shuffle(ores);
+			
+			SkyMines.logger.info("Shuffled Ore List:");
+			Material[] materialArray = new Material[ores.size()];
+			SkyMines.logger.info(ores.toArray(materialArray).toString());
+			
+			if(ores.size() != blocks.size()) {
+				SkyMines.logger.info("Sizes are not equal! Must fix!");
+				continue;
+			}
+			
+			for (int i = 0; i < blocks.size(); i++) {
+				blocks.get(i).setType(ores.get(i));
+			}
+			
+			SkyMines.logger.info("Succesfully regenerated a mine");
+			
+			mineIndex++;
+		}
+		
+		if (hasBeenTwentyMinutes) {
+			hasBeenTwentyMinutes = false;
+		}else{
+			hasBeenTwentyMinutes = true;
 		}
 	}
 }

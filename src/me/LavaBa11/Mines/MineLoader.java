@@ -36,12 +36,14 @@ public class MineLoader {
 				regions.hasRegion("safezone2")
 				) {
 				
+					
+					//THIS ORDER IS IMPORTANT. IT IS REFERENCED IN MINEREGENERATOR
 				    mines.add(regions.getRegion("north"));
 				    mines.add(regions.getRegion("south"));
 				    mines.add(regions.getRegion("east"));
 				    mines.add(regions.getRegion("west"));
 				    mines.add(regions.getRegion("safezone1"));
-				    mines.add(regions.getRegion("safesone2"));
+				    mines.add(regions.getRegion("safesone2"));  
 				}else{
 					SkyMines.logger.severe("Couldn't find a specified mine. Please make sure all mines are defined in WorldGuard!");
 				}
