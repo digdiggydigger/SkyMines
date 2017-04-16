@@ -120,6 +120,7 @@ public class SkyMines extends JavaPlugin {
 				int index = 0;
 				int remainingItems = convertedAmount;
 				for (ItemStack is : player.getInventory().getContents()) {
+					// Comment Code
 					if (remainingItems > 0) {
 						if (is != null) {
 							if (is.getType().equals(Material.COAL)) {
