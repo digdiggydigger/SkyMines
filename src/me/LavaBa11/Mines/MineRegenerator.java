@@ -119,12 +119,16 @@ public class MineRegenerator extends BukkitRunnable{
 			Collections.shuffle(ores);
 			
 			SkyMines.logger.info("Shuffled Ore List:");
-			String[] list = new String[ores.size()];
+			String toPrint = "[";
+			
 			for (int i = 0; i < ores.size(); i++) {
-				list[i] = ores.get(i).name();
+				toPrint += ores.get(i).name() + ", ";
 			}
 			
-			SkyMines.logger.info(list.toString());
+			toPrint = toPrint.trim();
+			toPrint += "]";
+			
+			SkyMines.logger.info(toPrint);
 			
 			if(ores.size() != blockLocations.size()) {
 				SkyMines.logger.info("Sizes are not equal! Must fix!");
@@ -132,7 +136,9 @@ public class MineRegenerator extends BukkitRunnable{
 			}
 			
 			for (int i = 0; i < blockLocations.size(); i++) {
-				blockLocations.get(i).getWorld().getBlockAt(blockLocations.get(i)).setType(ores.get(i));
+				Location blockLocation = blockLocations.get(i);
+				blockLocation.getWorld().getBlockAt(blockLocation).setType(ores.get(i));
+				SkyMines.logger.info("Setting block at x:" + blockLocation.getBlockX() + ", y:" + blockLocation.getBlockY() + ", z:" + blockLocation.getBlockZ() + " to " + ores.get(i).name());
 			}
 			
 			SkyMines.logger.info("Succesfully regenerated a mine");
