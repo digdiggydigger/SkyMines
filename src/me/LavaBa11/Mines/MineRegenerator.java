@@ -189,9 +189,9 @@ public class MineRegenerator extends BukkitRunnable{
 			SkyMines.logger.info("Minimum Point: x:" + cuboidRegion.getMinimumPoint().getBlockX() + " y:" + cuboidRegion.getMinimumPoint().getBlockY() + " z: " + cuboidRegion.getMinimumPoint().getBlockZ() + ". ");
 			SkyMines.logger.info("Maximum Point: x:" + cuboidRegion.getMaximumPoint().getBlockX() + " y:" + cuboidRegion.getMaximumPoint().getBlockY() + " z: " + cuboidRegion.getMaximumPoint().getBlockZ() + ". ");
 			
-			for (int x = minX; x < maxX; x++) {
-				for (int y = minY; y < maxY; y++) {
-					for (int z = minZ; z < maxZ; z++) {
+			for (int x = minX; x <= maxX; x++) {
+				for (int y = minY; y <= maxY; y++) {
+					for (int z = minZ; z <= maxZ; z++) {
 						World world = Bukkit.getServer().getWorld("world");
 						blocks.add(world.getBlockAt(new Location(world, x, y, z))); //TODO: Replace with name of world used on server.
 						SkyMines.logger.info("AddingBlock");
