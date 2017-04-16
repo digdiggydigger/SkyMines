@@ -37,6 +37,7 @@ public class MineRegenerator extends BukkitRunnable{
 	private static HashMap<ProtectedRegion,ArrayList<Location>> oreLocations = new HashMap<ProtectedRegion, ArrayList<Location>>();
 	
 	public MineRegenerator() {
+		SkyMines.logger.info("Loading Ore Locations");
 		int mineIndex = 0;
 		for (ProtectedRegion region : MineLoader.mines) {
 			List<Block> blocks = getBlocks(region);
@@ -54,6 +55,7 @@ public class MineRegenerator extends BukkitRunnable{
 			}
 			
 			oreLocations.put(region, oreBlockLocations);
+			SkyMines.logger.info("Adding Region and Locations to oreLocations");
 		}
 	}
 	
