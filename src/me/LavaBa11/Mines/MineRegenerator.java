@@ -51,6 +51,8 @@ public class MineRegenerator extends BukkitRunnable{
 					b.getType().equals(Material.DIAMOND_ORE) || 
 					b.getType().equals(Material.EMERALD_ORE)) {
 					oreBlockLocations.add(b.getLocation());
+					
+					SkyMines.logger.info("Adding block at location: x:" + b.getLocation().getBlockX() + " y:" + b.getLocation().getBlockY() + " z: " + b.getLocation().getBlockZ() + " to a region.");
 				}
 			}
 			
