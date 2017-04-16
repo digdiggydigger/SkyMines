@@ -38,7 +38,6 @@ public class MineRegenerator extends BukkitRunnable{
 	
 	public MineRegenerator() {
 		SkyMines.logger.info("Loading Ore Locations");
-		int mineIndex = 0;
 		for (ProtectedRegion region : MineLoader.mines) {
 			List<Block> blocks = getBlocks(region);
 			
@@ -159,6 +158,8 @@ public class MineRegenerator extends BukkitRunnable{
 	private static List<Block> getBlocks(ProtectedRegion region) {
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		if (region instanceof ProtectedPolygonalRegion) {
+			
+			SkyMines.logger.info("ProtectedPolygonalRegion");
 		    ProtectedPolygonalRegion polygon = (ProtectedPolygonalRegion) region;
 		    List<BlockVector2D> points = polygon.getPoints();
 		    
@@ -166,10 +167,12 @@ public class MineRegenerator extends BukkitRunnable{
 		    	for (int y = polygon.getMinimumPoint().getBlockY(); y < polygon.getMaximumPoint().getBlockY(); y++) {
 		    		World world = Bukkit.getServer().getWorld("world");
 		    		blocks.add(world.getBlockAt(new Location(world, point.getBlockX(), y, point.getBlockZ()))); //TODO: Replace with name of world used on server.
+		    		SkyMines.logger.info("AddingBlock");
 		    	}
 		    }
 		    
 		}else if (region instanceof ProtectedCuboidRegion) {
+			SkyMines.logger.info("ProtectedCuboidRegion");
 			ProtectedCuboidRegion cuboidRegion = (ProtectedCuboidRegion) region;
 			BlockVector max = cuboidRegion.getMaximumPoint();
 			
@@ -183,11 +186,15 @@ public class MineRegenerator extends BukkitRunnable{
 			int minY = min.getBlockY();
 			int minZ = min.getBlockZ();
 			
+			SkyMines.logger.info("Minimum Point: x:" + cuboidRegion.getMinimumPoint().getBlockX() + " y:" + cuboidRegion.getMinimumPoint().getBlockY() + " z: " + cuboidRegion.getMinimumPoint().getBlockZ() + ". ");
+			SkyMines.logger.info("Maximum Point: x:" + cuboidRegion.getMaximumPoint().getBlockX() + " y:" + cuboidRegion.getMaximumPoint().getBlockY() + " z: " + cuboidRegion.getMaximumPoint().getBlockZ() + ". ");
+			
 			for (int x = minX; x < maxX; x++) {
 				for (int y = minY; y < maxY; y++) {
 					for (int z = minZ; z < maxZ; z++) {
 						World world = Bukkit.getServer().getWorld("world");
 						blocks.add(world.getBlockAt(new Location(world, x, y, z))); //TODO: Replace with name of world used on server.
+						SkyMines.logger.info("AddingBlock");
 					}
 				}
 			}
