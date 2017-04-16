@@ -211,7 +211,7 @@ public class SkyMines extends JavaPlugin {
 				}
 				
 				if (player.getInventory().contains(lapis)) {
-					ItemStack lapiss = new ItemStack(lapis);
+					ItemStack lapiss = new ItemStack(Material.INK_SACK, 1, (short) 4);
 					lapiss.setAmount(stackAmount);
 						player.getInventory().removeItem(new ItemStack(lapiss));
 						int cashAmount = stackAmount * 1;
