@@ -49,7 +49,12 @@ public class SkyMines extends JavaPlugin {
 		long tenMinutes = 
 				(20) * //The measurement is in Minecraft game ticks, and ticks run 20 times a second. So, we times how many seconds we want to wait by 20.
 				((60) * (10)); //This determines how many seconds for 10 minutes.
-		new MineRegenerator().runTaskTimer(this, 0L, tenMinutes); //Regenerates the ores
+		
+		long threeMinutes = 
+				(20) *
+				((60) * (3));
+		MineRegenerator mr = new MineRegenerator();
+		mr.runTaskTimer(this, 0L, threeMinutes); //Regenerates the ores (Using Three Minutes For Testing Purposes)
 		
 		new MineListener(this);
 		new PlayerJoin(this);
