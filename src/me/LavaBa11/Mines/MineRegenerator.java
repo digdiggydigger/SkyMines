@@ -138,9 +138,7 @@ public class MineRegenerator extends BukkitRunnable{
 			}
 			
 			for (int i = 0; i < blockLocations.size(); i++) {
-				Location blockLocation = blockLocations.get(i);
-				blockLocation.getWorld().getBlockAt(blockLocation).setType(ores.get(i));
-				SkyMines.logger.info("Setting block at x:" + blockLocation.getBlockX() + ", y:" + blockLocation.getBlockY() + ", z:" + blockLocation.getBlockZ() + " to " + ores.get(i).name());
+				blockLocations.get(i).getWorld().getBlockAt(blockLocations.get(i)).setType(ores.get(i));
 			}
 			
 			SkyMines.logger.info("Succesfully regenerated a mine");
