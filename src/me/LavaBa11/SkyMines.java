@@ -31,6 +31,8 @@ public class SkyMines extends JavaPlugin {
 	
 	public static String prefix = "§8(§9SkyMines§8)§7";
 	
+	public static ItemStack lapis = new ItemStack(Material.INK_SACK, 1, (short) 4);
+	
 	@Override
 	public void onEnable() {
 		logger = getLogger();
@@ -81,32 +83,101 @@ public class SkyMines extends JavaPlugin {
 				Player player = (Player) sender;
 				if (args.length == 0) {
 					player.sendMessage("§cIncorrect Usage: §9/coalsell <amount>");
+					return true;
 				}
+
+					String amount = args [0];
+						
+					int convertedAmount = Integer.parseInt(amount);
+					
+					int stackAmount = 0;
+					for(ItemStack is : player.getInventory().all(Material.COAL).values()) {
+						stackAmount = stackAmount + is.getAmount();
+					}
+					if (stackAmount < convertedAmount) {
+						player.sendMessage("§cYou don't have enough coal to sell!");
+						return true;
+					}
+					
+					if (player.getInventory().contains(Material.COAL)) {
+							player.getInventory().removeItem(new ItemStack(Material.COAL, stackAmount));
+							int cashAmount = stackAmount * 2;
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
+					} 
+					
+					else {
+						player.sendMessage("§6You do not have any ingots to sell!");
+					}
+					return true;
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("ironsell") && sender instanceof Player) {
+			Player player = (Player) sender;
+			if (args.length == 0) {
+				player.sendMessage("§cIncorrect Usage: §9/ironsell <amount>");
+				return true;
+			}
 
 				String amount = args [0];
 					
 				int convertedAmount = Integer.parseInt(amount);
 				
 				int stackAmount = 0;
-				for(ItemStack is : player.getInventory().all(Material.COAL).values()) {
+				for(ItemStack is : player.getInventory().all(Material.IRON_INGOT).values()) {
 					stackAmount = stackAmount + is.getAmount();
 				}
 				if (stackAmount < convertedAmount) {
-					player.sendMessage("§cYou don't have enough coal to sell!");
-					return false;
+					player.sendMessage("§cYou don't have enough iron to sell!");
+					return true;
 				}
 				
-				if (player.getInventory().contains(Material.COAL)) {
-						player.getInventory().removeItem(new ItemStack(Material.COAL, stackAmount));
-						int cashAmount = stackAmount * 2;
+				if (player.getInventory().contains(Material.IRON_INGOT)) {
+						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT, stackAmount));
+						int cashAmount = stackAmount * 4;
 						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
-	//					player.updateInventory();
 				} 
+				
 				else {
 					player.sendMessage("§6You do not have any ingots to sell!");
 				}
 				return true;
 		}
+		
+		if (cmd.getName().equalsIgnoreCase("lapissell") && sender instanceof Player) {
+			Player player = (Player) sender;
+			if (args.length == 0) {
+				player.sendMessage("§cIncorrect Usage: §9/lapissell <amount>");
+				return true;
+			}
+
+				String amount = args [0];
+					
+				int convertedAmount = Integer.parseInt(amount);
+				
+				int stackAmount = 0;
+				for(ItemStack is : player.getInventory().all(lapis).values()) {
+					stackAmount = stackAmount + is.getAmount();
+				}
+				if (stackAmount < convertedAmount) {
+					player.sendMessage("§cYou don't have enough lapis to sell!");
+					return true;
+				}
+				
+				if (player.getInventory().contains(lapis)) {
+					ItemStack lapiss = new ItemStack(lapis);
+					lapiss.setAmount(stackAmount);
+						player.getInventory().removeItem(new ItemStack(lapiss));
+						int cashAmount = stackAmount * 1;
+						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
+				} 
+				
+				else {
+					player.sendMessage("§6You do not have any ingots to sell!");
+				}
+				return true;
+		}
+		
+		
 		
 		return false;
 		

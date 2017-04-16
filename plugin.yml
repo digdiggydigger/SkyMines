@@ -6,14 +6,12 @@ depend: [WorldGuard]
 commands:
    skymines:
       description: SkyMines Help.
-      usage: /<command>
    coalsell:
       description: Sell Coal.
-      usage: /<command>
       aliases: [csell, sellc]
-   command:
-      description: Blank description.
-      usage: /<command>
-   command:
-      description: Blank description.
-      usage: /<command>
+   ironsell:
+      description: Sell Iron.
+      aliases: [isell, selli]
+   lapissell:
+      description: Sell Lapis Luzuli.
+      aliases: [lsell, selll]
