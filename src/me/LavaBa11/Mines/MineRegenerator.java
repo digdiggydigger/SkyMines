@@ -53,6 +53,8 @@ public class MineRegenerator extends BukkitRunnable{
 					oreBlockLocations.add(b.getLocation());
 					
 					SkyMines.logger.info("Adding block at location: x:" + b.getLocation().getBlockX() + " y:" + b.getLocation().getBlockY() + " z: " + b.getLocation().getBlockZ() + " to a region.");
+				}else{
+					SkyMines.logger.info("Found a block that isn't an ore.");
 				}
 			}
 			
@@ -72,6 +74,7 @@ public class MineRegenerator extends BukkitRunnable{
 			ArrayList<Location> blockLocations = oreLocations.get(region);
 			
 			int amount = blockLocations.size();
+			SkyMines.logger.info("Amount of ore blocks in region:");
 			
 			
 			//Get list of Materials
