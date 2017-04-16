@@ -85,30 +85,77 @@ public class SkyMines extends JavaPlugin {
 					player.sendMessage("§cIncorrect Usage: §9/coalsell <amount>");
 					return true;
 				}
-
-					String amount = args [0];
+				
+				
+				String amount = args [0];
+				
+				int convertedAmount = 0;
+				try {
+					convertedAmount = Integer.parseInt(amount);
+				}catch(Exception e) {
+					if (args[0].equalsIgnoreCase("all")) {
+						int stackAmount = 0;
+						for(ItemStack is : player.getInventory().all(Material.COAL).values()) {
+							stackAmount = stackAmount + is.getAmount();
+						}
+						if (stackAmount < convertedAmount) {
+							player.sendMessage("§cYou don't have enough coal to sell!");
+							return true;
+						}
 						
-					int convertedAmount = Integer.parseInt(amount);
-					
-					int stackAmount = 0;
-					for(ItemStack is : player.getInventory().all(Material.COAL).values()) {
-						stackAmount = stackAmount + is.getAmount();
-					}
-					if (stackAmount < convertedAmount) {
-						player.sendMessage("§cYou don't have enough coal to sell!");
+						if (player.getInventory().contains(Material.COAL)) {
+								player.getInventory().removeItem(new ItemStack(Material.COAL, stackAmount));
+								int cashAmount = stackAmount * 2;
+								Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
+						} 
+						
+						else {
+							player.sendMessage("§6You do not have any ingots to sell!");
+						}
 						return true;
 					}
-					
-					if (player.getInventory().contains(Material.COAL)) {
-							player.getInventory().removeItem(new ItemStack(Material.COAL, stackAmount));
-							int cashAmount = stackAmount * 2;
-							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
-					} 
-					
-					else {
-						player.sendMessage("§6You do not have any ingots to sell!");
+				}
+				
+				
+				int index = 0;
+				int remainingItems = convertedAmount;
+				for (ItemStack is : player.getInventory().getContents()) {
+					if (remainingItems > 0) {
+						if (is != null) {
+							if (is.getType().equals(Material.COAL)) {
+								if (is.getAmount() > remainingItems) {
+									int difference = is.getAmount() - remainingItems;
+									
+									ItemStack toReplace = is;
+									
+									toReplace.setAmount(difference);
+									
+									player.getInventory().setItem(index, toReplace);
+								}else if(is.getAmount() == remainingItems){
+								
+									remainingItems = 0;
+									player.getInventory().setItem(index, new ItemStack(Material.AIR));
+								}else{
+									
+									//If remainingItems is larger than the stack amount, then we remove the stack, and take away the amount from remainingItems.
+									remainingItems -= is.getAmount(); //6
+									
+									player.getInventory().setItem(index, new ItemStack(Material.AIR));
+								}
+								
+							}
+						}
+					}else{
+						break;
 					}
-					return true;
+					
+					index++;
+				}
+				
+				
+				
+
+					
 		}
 		
 		if (cmd.getName().equalsIgnoreCase("ironsell") && sender instanceof Player) {
