@@ -79,8 +79,8 @@ public class SkyMines extends JavaPlugin {
 		
 		if (cmd.getName().equalsIgnoreCase("coalsell") && sender instanceof Player) {
 				Player player = (Player) sender;
-				if (args[0] == null) {
-					player.sendMessage("§cIncorrect Usage: §9/coalsell <amount/'all'>");
+				if (args.length == 0) {
+					player.sendMessage("§cIncorrect Usage: §9/coalsell <amount>");
 				}
 
 				String amount = args [0];
