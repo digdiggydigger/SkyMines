@@ -51,6 +51,8 @@ public class MineRegenerator extends BukkitRunnable{
 					b.getType().equals(Material.DIAMOND_ORE) || 
 					b.getType().equals(Material.EMERALD_ORE)) {
 					oreBlockLocations.add(b.getLocation());
+					
+					SkyMines.logger.info("Adding block at location: x:" + b.getLocation().getBlockX() + " y:" + b.getLocation().getBlockY() + " z: " + b.getLocation().getBlockZ() + " to a region.");
 				}
 			}
 			
@@ -119,12 +121,16 @@ public class MineRegenerator extends BukkitRunnable{
 			Collections.shuffle(ores);
 			
 			SkyMines.logger.info("Shuffled Ore List:");
-			String[] list = new String[ores.size()];
+			String toPrint = "[";
+			
 			for (int i = 0; i < ores.size(); i++) {
-				list[i] = ores.get(i).name();
+				toPrint += ores.get(i).name() + ", ";
 			}
 			
-			SkyMines.logger.info(list.toString());
+			toPrint = toPrint.trim();
+			toPrint += "]";
+			
+			SkyMines.logger.info(toPrint);
 			
 			if(ores.size() != blockLocations.size()) {
 				SkyMines.logger.info("Sizes are not equal! Must fix!");
