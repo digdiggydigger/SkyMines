@@ -100,7 +100,7 @@ public class MineRegenerator extends BukkitRunnable{
 				SkyMines.logger.info("TotalBlocks is the same size as amount");
 			}
 			
-			for (int i = 0; i < coalBlocks; i++) {
+			for (int i = 0; i < coalBlocks + leftOver; i++) {
 				ores.add(Material.COAL_ORE);
 			}
 			
