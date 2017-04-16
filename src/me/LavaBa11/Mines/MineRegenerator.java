@@ -74,7 +74,7 @@ public class MineRegenerator extends BukkitRunnable{
 			ArrayList<Location> blockLocations = oreLocations.get(region);
 			
 			int amount = blockLocations.size();
-			SkyMines.logger.info("Amount of ore blocks in region:");
+			SkyMines.logger.info("Amount of ore blocks in region: " + amount);
 			
 			
 			//Get list of Materials
