@@ -2,6 +2,7 @@ package me.LavaBa11.Mines;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -25,13 +26,36 @@ public class MineRegenerator extends BukkitRunnable{
 	private static final double percentOfCoal = .30;
 	private static final double percentOfIron = .30;
 	private static final double percentOfGold = .20;
-	private static final double percentOfDiamond = .05;
-	private static final double percentOfEmerald = .05;
+	private static final double percentOfDiamond = .10;
+	private static final double percentOfEmerald = .10;
 	
 	
 	private static final double percentOfLapis = .10;
 	
 	private static boolean hasBeenTwentyMinutes = false;
+	
+	private static HashMap<ProtectedRegion,ArrayList<Location>> oreLocations = new HashMap<ProtectedRegion, ArrayList<Location>>();
+	
+	public MineRegenerator() {
+		int mineIndex = 0;
+		for (ProtectedRegion region : MineLoader.mines) {
+			List<Block> blocks = getBlocks(region);
+			
+			ArrayList<Location> oreBlockLocations = new ArrayList<Location>();
+			
+			for (Block b : blocks) {
+				if (b.getType().equals(Material.COAL_ORE) || 
+					b.getType().equals(Material.IRON_ORE) || 
+					b.getType().equals(Material.GOLD_ORE) || 
+					b.getType().equals(Material.DIAMOND_ORE) || 
+					b.getType().equals(Material.EMERALD_ORE)) {
+					oreBlockLocations.add(b.getLocation());
+				}
+			}
+			
+			oreLocations.put(region, oreBlockLocations);
+		}
+	}
 	
 	@Override
 	public void run() {
@@ -41,52 +65,12 @@ public class MineRegenerator extends BukkitRunnable{
 			if (!hasBeenTwentyMinutes) {
 				if (mineIndex == 4 || mineIndex == 5) continue;
 			}
-			List<Block> blocks = new ArrayList<Block>();
+			ArrayList<Location> blockLocations = oreLocations.get(region);
 			
-			if (region instanceof ProtectedPolygonalRegion) {
-			    ProtectedPolygonalRegion polygon = (ProtectedPolygonalRegion) region;
-			    List<BlockVector2D> points = polygon.getPoints();
-			    
-			    for (BlockVector2D point : points) {
-			    	for (int y = polygon.getMinimumPoint().getBlockY(); y < polygon.getMaximumPoint().getBlockY(); y++) {
-			    		World world = Bukkit.getServer().getWorld("world");
-			    		blocks.add(world.getBlockAt(new Location(world, point.getBlockX(), y, point.getBlockZ()))); //TODO: Replace with name of world used on server.
-			    	}
-			    }
-			    
-			}else if (region instanceof ProtectedCuboidRegion) {
-				ProtectedCuboidRegion cuboidRegion = (ProtectedCuboidRegion) region;
-				BlockVector max = cuboidRegion.getMaximumPoint();
-				
-				int maxX = max.getBlockX();
-				int maxY = max.getBlockY();
-				int maxZ = max.getBlockZ();
-				
-				BlockVector min = cuboidRegion.getMinimumPoint();
-				
-				int minX = min.getBlockX();
-				int minY = min.getBlockY();
-				int minZ = min.getBlockZ();
-				
-				for (int x = minX; x < maxX; x++) {
-					for (int y = minY; y < maxY; y++) {
-						for (int z = minZ; z < maxZ; z++) {
-							World world = Bukkit.getServer().getWorld("world");
-							blocks.add(world.getBlockAt(new Location(world, x, y, z))); //TODO: Replace with name of world used on server.
-						}
-					}
-				}
-				
-				
-				
-			}else if (region instanceof GlobalProtectedRegion) {
-				SkyMines.logger.severe("A global region has been assigned for a mine. This is an error! Cancelling Thread");
-				cancel();
-				return;
-			}
+			int amount = blockLocations.size();
 			
-			int amount = blocks.size();
 			
+			//Get list of Materials
 			ArrayList<Material> ores = new ArrayList<Material>();
 			
 			int coalBlocks = (int) ((double) amount * percentOfCoal);
@@ -136,13 +120,13 @@ public class MineRegenerator extends BukkitRunnable{
 			Material[] materialArray = new Material[ores.size()];
 			SkyMines.logger.info(ores.toArray(materialArray).toString());
 			
-			if(ores.size() != blocks.size()) {
+			if(ores.size() != blockLocations.size()) {
 				SkyMines.logger.info("Sizes are not equal! Must fix!");
 				continue;
 			}
 			
-			for (int i = 0; i < blocks.size(); i++) {
-				blocks.get(i).setType(ores.get(i));
+			for (int i = 0; i < blockLocations.size(); i++) {
+				blockLocations.get(i).getWorld().getBlockAt(blockLocations.get(i)).setType(ores.get(i));
 			}
 			
 			SkyMines.logger.info("Succesfully regenerated a mine");
@@ -155,5 +139,51 @@ public class MineRegenerator extends BukkitRunnable{
 		}else{
 			hasBeenTwentyMinutes = true;
 		}
+	}
+	
+	private static List<Block> getBlocks(ProtectedRegion region) {
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		if (region instanceof ProtectedPolygonalRegion) {
+		    ProtectedPolygonalRegion polygon = (ProtectedPolygonalRegion) region;
+		    List<BlockVector2D> points = polygon.getPoints();
+		    
+		    for (BlockVector2D point : points) {
+		    	for (int y = polygon.getMinimumPoint().getBlockY(); y < polygon.getMaximumPoint().getBlockY(); y++) {
+		    		World world = Bukkit.getServer().getWorld("world");
+		    		blocks.add(world.getBlockAt(new Location(world, point.getBlockX(), y, point.getBlockZ()))); //TODO: Replace with name of world used on server.
+		    	}
+		    }
+		    
+		}else if (region instanceof ProtectedCuboidRegion) {
+			ProtectedCuboidRegion cuboidRegion = (ProtectedCuboidRegion) region;
+			BlockVector max = cuboidRegion.getMaximumPoint();
+			
+			int maxX = max.getBlockX();
+			int maxY = max.getBlockY();
+			int maxZ = max.getBlockZ();
+			
+			BlockVector min = cuboidRegion.getMinimumPoint();
+			
+			int minX = min.getBlockX();
+			int minY = min.getBlockY();
+			int minZ = min.getBlockZ();
+			
+			for (int x = minX; x < maxX; x++) {
+				for (int y = minY; y < maxY; y++) {
+					for (int z = minZ; z < maxZ; z++) {
+						World world = Bukkit.getServer().getWorld("world");
+						blocks.add(world.getBlockAt(new Location(world, x, y, z))); //TODO: Replace with name of world used on server.
+					}
+				}
+			}
+			
+			
+			
+		}else if (region instanceof GlobalProtectedRegion) {
+			SkyMines.logger.severe("A global region has been assigned for a mine. This is an error! Cancelling Thread");
+			return null;
+		}
+		
+		return blocks;
 	}
 }
