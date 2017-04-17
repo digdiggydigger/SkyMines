@@ -140,7 +140,6 @@ public class MineRegenerator extends BukkitRunnable{
 			}
 			
 			for (int i = 0; i < blockLocations.size(); i++) {
-				Bukkit.broadcastMessage("§a§lBEFORE §fSet Block Line");
 				blockLocations.get(i).getWorld().getBlockAt(blockLocations.get(i)).setType(ores.get(i));
 			}
 			

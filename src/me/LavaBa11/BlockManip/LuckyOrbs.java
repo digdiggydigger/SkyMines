@@ -35,7 +35,7 @@ public class LuckyOrbs implements Listener {
 		ItemStack lOrb = new ItemStack(Material.EYE_OF_ENDER);
 		ItemMeta lOrbM = lOrb.getItemMeta();
 		lOrbM.setDisplayName("§c§lLucky Orb");
-		lOrbM.setLore(Arrays.asList("§7Place this on a §7§nGold Block§7 to uncover,", "§7One of its many, many rare rewards!"));
+		lOrbM.setLore(Arrays.asList("§7Place this on a §6§nGold Block§7 to uncover,", "§7One of its many, many rare rewards!"));
 		lOrb.setItemMeta(lOrbM);
 		lOrb.setAmount(1);
 		player.getInventory().addItem(addGlow(lOrb));

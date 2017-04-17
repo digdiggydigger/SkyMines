@@ -21,7 +21,7 @@ public class OreDrops implements Listener {
 	public void onOreDestroy(BlockBreakEvent e) {
 		Player player = e.getPlayer();
 		Material block = e.getBlock().getType();
-//		if (MineOres().contains(block)) {
+
 		if (block == Material.COAL_ORE) {
 			e.getBlock().setType(Material.AIR);
 			ItemStack coal = new ItemStack(Material.COAL);

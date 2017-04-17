@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -19,6 +20,7 @@ import me.LavaBa11.Messages.Help;
 import me.LavaBa11.Mines.MineListener;
 import me.LavaBa11.Mines.MineLoader;
 import me.LavaBa11.Mines.MineRegenerator;
+import me.LavaBa11.Permissions.Permissions;
 import me.LavaBa11.PlayerJoin.PlayerJoin;
 import me.LavaBa11.Rankup.PlayerRankup;
 
@@ -36,10 +38,6 @@ public class SkyMines extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		
-		Bukkit.getServer().getPluginManager().addPermission(Permissions.admin);
-		Bukkit.getServer().getPluginManager().addPermission(Permissions.player);
-		Bukkit.getServer().getPluginManager().addPermission(Permissions.lOrb);
 		
 		logger = getLogger();
 		
@@ -69,6 +67,13 @@ public class SkyMines extends JavaPlugin {
 		new Help(this);
 		new PlayerRankup(this);
 		new OreDrops(this);
+		new Permissions(this);
+		
+		PluginManager pm = getServer().getPluginManager();
+		pm.addPermission(Permissions.admin);
+		pm.addPermission(Permissions.player);
+		pm.addPermission(Permissions.lOrb);
+		
 	}
 			
 	@Override
