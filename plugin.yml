@@ -15,3 +15,6 @@ commands:
    lapissell:
       description: Sell Lapis Luzuli.
       aliases: [lsell, selll]
+   luckyorb:
+      description: Get A Lucky Orb.
+      aliases: [lorb]

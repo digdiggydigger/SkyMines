@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import me.LavaBa11.BlockManip.LuckyOrbs;
 import me.LavaBa11.BlockManip.OreDrops;
 import me.LavaBa11.Messages.Help;
 import me.LavaBa11.Mines.MineListener;
@@ -35,6 +36,11 @@ public class SkyMines extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		
+		Bukkit.getServer().getPluginManager().addPermission(Permissions.admin);
+		Bukkit.getServer().getPluginManager().addPermission(Permissions.player);
+		Bukkit.getServer().getPluginManager().addPermission(Permissions.lOrb);
+		
 		logger = getLogger();
 		
 		wg = getWorldGuard();
@@ -76,6 +82,14 @@ public class SkyMines extends JavaPlugin {
 		if (cmd.getName().equalsIgnoreCase("skymines") || (cmd.getName().equalsIgnoreCase("skymine")) && sender instanceof Player) {
 			Player player = (Player) sender;			
 			Help.helpCommand(player);
+			return true;
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("luckyorb") && sender instanceof Player) {
+			Player player = (Player) sender;			
+			if (player.hasPermission(Permissions.lOrb)) {
+				LuckyOrbs.onLuckyOrbCommand(sender);
+			}
 			return true;
 		}
 		
