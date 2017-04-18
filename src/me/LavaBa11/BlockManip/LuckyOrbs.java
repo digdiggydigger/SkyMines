@@ -10,10 +10,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.LavaBa11.SkyMines;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 
 public class LuckyOrbs implements Listener {
+	
+	public LuckyOrbs(SkyMines plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);	
+	}
 	
 	public static ItemStack addGlow(ItemStack item){ 
 		  net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
@@ -32,7 +37,7 @@ public class LuckyOrbs implements Listener {
 	public static void onLuckyOrbCommand(CommandSender sender) {
 		Player player = (Player) sender;
 		
-		ItemStack lOrb = new ItemStack(Material.EYE_OF_ENDER);
+		ItemStack lOrb = new ItemStack(Material.SOUL_SAND);
 		ItemMeta lOrbM = lOrb.getItemMeta();
 		lOrbM.setDisplayName("§c§lLucky Orb");
 		lOrbM.setLore(Arrays.asList("§7Place this on a §6§nGold Block§7 to uncover,", "§7One of its many, many rare rewards!"));

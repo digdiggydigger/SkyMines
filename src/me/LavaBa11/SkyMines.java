@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import me.LavaBa11.BlockManip.LuckyOrbEvents;
 import me.LavaBa11.BlockManip.LuckyOrbs;
 import me.LavaBa11.BlockManip.OreDrops;
 import me.LavaBa11.Messages.Help;
@@ -68,6 +69,8 @@ public class SkyMines extends JavaPlugin {
 		new PlayerRankup(this);
 		new OreDrops(this);
 		new Permissions(this);
+		new LuckyOrbs(this);
+		new LuckyOrbEvents(this);
 		
 		PluginManager pm = getServer().getPluginManager();
 		pm.addPermission(Permissions.admin);
