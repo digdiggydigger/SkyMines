@@ -58,12 +58,6 @@ public class LuckyOrbEvents implements Listener {
 			} else {
 				e.setCancelled(true);
 			}
-		}
-		
+		}	
 	}
-	
-	public static ItemStack getRandomItem() {
-        Random rand = new Random();
-        if (!randomItems.)
-    }
 }
