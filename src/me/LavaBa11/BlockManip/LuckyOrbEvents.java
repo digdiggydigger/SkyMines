@@ -11,6 +11,7 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -26,6 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.LavaBa11.SkyMines;
+import me.LavaBa11.Items.CustomItems;
 import net.minecraft.server.v1_8_R3.EnumParticle;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
@@ -61,6 +63,15 @@ public class LuckyOrbEvents implements Listener {
 		  return CraftItemStack.asCraftMirror(nmsStack);
 		}
 	
+	public static void eggItem() {
+		ItemStack item = new ItemStack(CustomItems.egg);
+		ItemMeta itemm = item.getItemMeta();
+		itemm.setDisplayName("Credits Egg");
+		itemm.setLore(Arrays.asList("§7Right-Click this egg to gain ingame store credits"));
+		item.setItemMeta(itemm);
+		
+	}
+	
 	public static ArrayList<ItemStack> randomItems() { 
 		
 		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
@@ -68,6 +79,7 @@ public class LuckyOrbEvents implements Listener {
 		items.add(new ItemStack (Material.LEATHER_CHESTPLATE, 2));
 		items.add(new ItemStack (Material.LEATHER_LEGGINGS, 2));
 		items.add(new ItemStack (Material.LEATHER_BOOTS, 2));
+		// items.add(LuckyOrbEvents.eggItem());
 		return items;
 	}
 	
@@ -80,7 +92,6 @@ public class LuckyOrbEvents implements Listener {
 		int delay = 5;
 		int list = LuckyOrbEvents.randomItems().size();
 		Bukkit.broadcastMessage("" + list);
-		// LuckyOrbEvents.randomItems().get(LuckyOrbEvents.randomItems().current().nextInt(0, LuckyOrbEvents.randomItems().size() - 1));
 		Player player = e.getPlayer();
 		ItemStack lOrb = new ItemStack(Material.SOUL_SAND);
 		ItemMeta lOrbM = lOrb.getItemMeta();

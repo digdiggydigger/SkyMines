@@ -17,6 +17,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.LavaBa11.BlockManip.LuckyOrbEvents;
 import me.LavaBa11.BlockManip.LuckyOrbs;
 import me.LavaBa11.BlockManip.OreDrops;
+import me.LavaBa11.Items.CustomItems;
 import me.LavaBa11.Messages.Help;
 import me.LavaBa11.Mines.MineListener;
 import me.LavaBa11.Mines.MineLoader;
@@ -97,6 +98,14 @@ public class SkyMines extends JavaPlugin {
 			Player player = (Player) sender;			
 			if (player.hasPermission(Permissions.lOrb)) {
 				LuckyOrbs.onLuckyOrbCommand(sender);
+			}
+			return true;
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("creditegg") && sender instanceof Player) {
+			Player player = (Player) sender;			
+			if (player.hasPermission(Permissions.admin)) {
+				CustomItems.eggItemCom(sender);
 			}
 			return true;
 		}
