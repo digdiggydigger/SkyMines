@@ -18,3 +18,6 @@ commands:
    luckyorb:
       description: Get A Lucky Orb.
       aliases: [lorb]
+   creditegg:
+      description: Get A Credit Egg.
+      aliases: [cregg]

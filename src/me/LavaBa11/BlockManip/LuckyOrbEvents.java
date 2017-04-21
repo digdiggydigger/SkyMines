@@ -20,9 +20,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -181,5 +183,24 @@ public class LuckyOrbEvents implements Listener {
 	        if (ent instanceof Zombie) {
 	        	e.setCancelled(true);
 	        }
+	 }
+	 
+	 @EventHandler
+	 public void creditEggClick(PlayerInteractEvent e) {
+		 Player player = e.getPlayer();
+		 if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || (e.getAction().equals(Action.RIGHT_CLICK_AIR))) {
+				 ItemStack i = player.getItemInHand();
+				 if (i != null) {
+					 if (i.hasItemMeta()) {
+						 ItemMeta im = i.getItemMeta();
+						 if (im.getDisplayName().equalsIgnoreCase("§e§lCredits Egg")) {
+							 e.setCancelled(true);
+							 
+					 }
+				 }
+			 } else {
+				 e.setCancelled(true);
+			 }
+		 }
 	 }
 }
