@@ -30,5 +30,8 @@ public class Permissions implements Listener {
 	public static Permission RankY = new Permission("skymines.Y");
 
 	public static Permission RankZ = new Permission("skymines.Z");
+	
+	// Virtual Anvil
+	public static Permission anvil = new Permission("skymines.anvil");
 
 }

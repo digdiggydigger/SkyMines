@@ -14,11 +14,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
-import me.LavaBa11.BlockManip.IngotMultipliers;
 import me.LavaBa11.BlockManip.LuckyOrbEvents;
 import me.LavaBa11.BlockManip.LuckyOrbs;
 import me.LavaBa11.BlockManip.OreDrops;
 import me.LavaBa11.Items.CustomItems;
+import me.LavaBa11.Items.VirtualAnvil;
 import me.LavaBa11.Messages.Help;
 import me.LavaBa11.Mines.MineListener;
 import me.LavaBa11.Mines.MineLoader;
@@ -73,7 +73,7 @@ public class SkyMines extends JavaPlugin {
 		new Permissions(this);
 		new LuckyOrbs(this);
 		new LuckyOrbEvents(this);
-		//new IngotMultipliers(this);
+		new VirtualAnvil(this);
 		
 		PluginManager pm = getServer().getPluginManager();
 		pm.addPermission(Permissions.admin);
@@ -84,6 +84,7 @@ public class SkyMines extends JavaPlugin {
 		pm.addPermission(Permissions.RankT);
 		pm.addPermission(Permissions.RankY);
 		pm.addPermission(Permissions.RankZ);
+		pm.addPermission(Permissions.anvil);
 		
 	}
 			
@@ -98,6 +99,14 @@ public class SkyMines extends JavaPlugin {
 		if (cmd.getName().equalsIgnoreCase("skymines") || (cmd.getName().equalsIgnoreCase("skymine")) && sender instanceof Player) {
 			Player player = (Player) sender;			
 			Help.helpCommand(player);
+			return true;
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("virtualanvil") && sender instanceof Player) {
+			Player player = (Player) sender;			
+			if (player.hasPermission(Permissions.anvil)) {
+				VirtualAnvil.anvil(player);	
+			}
 			return true;
 		}
 		

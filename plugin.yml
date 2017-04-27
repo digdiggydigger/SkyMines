@@ -30,3 +30,6 @@ commands:
    creditegg:
       description: Get A Credit Egg.
       aliases: [cregg]
+   virtualanvil:
+      description: Opens A Virual Anvil.
+      aliases: [va, anvilv, av, vanvil]

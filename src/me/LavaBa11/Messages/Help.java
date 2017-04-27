@@ -28,5 +28,4 @@ public class Help implements Listener {
 		sender.sendMessage("§9Website: §7www.skymines.net/");
 		
 	}
-	
 }
