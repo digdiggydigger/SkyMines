@@ -8,13 +8,22 @@ commands:
       description: SkyMines Help.
    coalsell:
       description: Sell Coal.
-      aliases: [csell, sellc]
+      aliases: [csell, sellc, cs]
    ironsell:
       description: Sell Iron.
-      aliases: [isell, selli]
+      aliases: [isell, selli, irs]
+   goldsell:
+      description: Sell Gold Ingots.
+      aliases: [gsell, sellg, gs]
+   diamondsell:
+      description: Sell Diamonds.
+      aliases: [dsell, selld, ds]
+   emeraldsell:
+      description: Sell Emeralds.
+      aliases: [esell, selle, es]
    lapissell:
       description: Sell Lapis Luzuli.
-      aliases: [lsell, selll]
+      aliases: [lsell, selll, las]
    luckyorb:
       description: Get A Lucky Orb.
       aliases: [lorb]

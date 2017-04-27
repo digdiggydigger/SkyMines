@@ -19,10 +19,10 @@ public class PlayerJoin implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		//Main title
-		PacketPlayOutTitle title = new PacketPlayOutTitle(EnumTitleAction.TITLE, ChatSerializer.a("{\"text\":\"§9§n§lSkyMines\"}"), 10, 1000, 10);
+		PacketPlayOutTitle title = new PacketPlayOutTitle(EnumTitleAction.TITLE, ChatSerializer.a("{\"text\":\"§9§n§lWelcome To SkyMines\"}"), 10, 1000, 10);
 		((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(title);
 		//Subtitle
-		PacketPlayOutTitle subtitle = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, ChatSerializer.a("{\"text\":\"§7§lWelcome!\"}"), 10, 1000, 10);
+		PacketPlayOutTitle subtitle = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, ChatSerializer.a("{\"text\":\"§7§lNew Updates!\"}"), 10, 1000, 10);
 		((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(subtitle);
 	}
 }

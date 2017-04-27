@@ -11,9 +11,24 @@ public class Permissions implements Listener {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);	
 	}
 	
-	public static Permission admin = new Permission("skymines.admin");
-	public static Permission player = new Permission("skymines.admin");
-	public static Permission lOrb = new Permission("skymines.admin");
 	
+	// ADMIN
+	public static Permission admin = new Permission("skymines.admin");
+	
+	// LUCKY ORB
+	public static Permission lOrb = new Permission("skymines.lorb");
+	
+	// RANK INGOT MULTIPLIERS
+	public static Permission RankE = new Permission("skymines.E");
+	
+	public static Permission RankJ = new Permission("skymines.J");
+	
+	public static Permission RankO = new Permission("skymines.O");
+	
+	public static Permission RankT = new Permission("skymines.T");
+	
+	public static Permission RankY = new Permission("skymines.Y");
+
+	public static Permission RankZ = new Permission("skymines.Z");
 
 }

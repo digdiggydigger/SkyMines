@@ -11,7 +11,6 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -85,7 +84,6 @@ public class LuckyOrbEvents implements Listener {
 		return items;
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onLuckyOrbPlace(BlockPlaceEvent e) {
 		int px = e.getBlock().getX();

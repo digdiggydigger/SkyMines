@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import me.LavaBa11.BlockManip.IngotMultipliers;
 import me.LavaBa11.BlockManip.LuckyOrbEvents;
 import me.LavaBa11.BlockManip.LuckyOrbs;
 import me.LavaBa11.BlockManip.OreDrops;
@@ -72,11 +73,17 @@ public class SkyMines extends JavaPlugin {
 		new Permissions(this);
 		new LuckyOrbs(this);
 		new LuckyOrbEvents(this);
+		//new IngotMultipliers(this);
 		
 		PluginManager pm = getServer().getPluginManager();
 		pm.addPermission(Permissions.admin);
-		pm.addPermission(Permissions.player);
 		pm.addPermission(Permissions.lOrb);
+		pm.addPermission(Permissions.RankE);
+		pm.addPermission(Permissions.RankJ);
+		pm.addPermission(Permissions.RankO);
+		pm.addPermission(Permissions.RankT);
+		pm.addPermission(Permissions.RankY);
+		pm.addPermission(Permissions.RankZ);
 		
 	}
 			
@@ -113,7 +120,7 @@ public class SkyMines extends JavaPlugin {
 		if (cmd.getName().equalsIgnoreCase("coalsell") && sender instanceof Player) {
 				Player player = (Player) sender;
 				if (args.length == 0) {
-					player.sendMessage("§cIncorrect Usage: §9/coalsell <amount>");
+					player.sendMessage("§cIncorrect Usage: §9/coalsell or /cs <amount>");
 					return true;
 				}
 				
@@ -136,17 +143,15 @@ public class SkyMines extends JavaPlugin {
 						
 						if (player.getInventory().contains(Material.COAL)) {
 								player.getInventory().removeItem(new ItemStack(Material.COAL, stackAmount));
-								int cashAmount = stackAmount * 2;
+								int cashAmount = stackAmount * 1;
 								Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
-						} 
-						
+						} 		
 						else {
 							player.sendMessage("§6You do not have any ingots to sell!");
 						}
 						return true;
 					}
 				}
-				
 				
 				int index = 0;
 				int remainingItems = convertedAmount;
@@ -157,106 +162,352 @@ public class SkyMines extends JavaPlugin {
 							if (is.getType().equals(Material.COAL)) {
 								if (is.getAmount() > remainingItems) {
 									int difference = is.getAmount() - remainingItems;
-									
 									ItemStack toReplace = is;
-									
 									toReplace.setAmount(difference);
-									
 									player.getInventory().setItem(index, toReplace);
 								}else if(is.getAmount() == remainingItems){
-								
 									remainingItems = 0;
 									player.getInventory().setItem(index, new ItemStack(Material.AIR));
-								}else{
-									
+								}else{	
 									//If remainingItems is larger than the stack amount, then we remove the stack, and take away the amount from remainingItems.
 									remainingItems -= is.getAmount(); //6
-									
 									player.getInventory().setItem(index, new ItemStack(Material.AIR));
-								}
-								
+								}			
 							}
 						}
 					}else{
 						break;
-					}
-					
+					}	
 					index++;
-				}
-				
-				
-				
-
-					
+				}	
 		}
 		
 		if (cmd.getName().equalsIgnoreCase("ironsell") && sender instanceof Player) {
 			Player player = (Player) sender;
 			if (args.length == 0) {
-				player.sendMessage("§cIncorrect Usage: §9/ironsell <amount>");
+				player.sendMessage("§cIncorrect Usage: §9/ironsell or /is <amount>");
 				return true;
 			}
-
-				String amount = args [0];
+			
+			
+			String amount = args [0];
+			
+			int convertedAmount = 0;
+			try {
+				convertedAmount = Integer.parseInt(amount);
+			}catch(Exception e) {
+				if (args[0].equalsIgnoreCase("all")) {
+					int stackAmount = 0;
+					for(ItemStack is : player.getInventory().all(Material.IRON_INGOT).values()) {
+						stackAmount = stackAmount + is.getAmount();
+					}
+					if (stackAmount < convertedAmount) {
+						player.sendMessage("§cYou don't have enough iron to sell!");
+						return true;
+					}
 					
-				int convertedAmount = Integer.parseInt(amount);
-				
-				int stackAmount = 0;
-				for(ItemStack is : player.getInventory().all(Material.IRON_INGOT).values()) {
-					stackAmount = stackAmount + is.getAmount();
-				}
-				if (stackAmount < convertedAmount) {
-					player.sendMessage("§cYou don't have enough iron to sell!");
+					if (player.getInventory().contains(Material.IRON_INGOT)) {
+							player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT, stackAmount));
+							int cashAmount = stackAmount * 4;
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
+					} 		
+					else {
+						player.sendMessage("§6You do not have any ingots to sell!");
+					}
 					return true;
 				}
-				
-				if (player.getInventory().contains(Material.IRON_INGOT)) {
-						player.getInventory().removeItem(new ItemStack(Material.IRON_INGOT, stackAmount));
-						int cashAmount = stackAmount * 4;
-						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
-				} 
-				
-				else {
-					player.sendMessage("§6You do not have any ingots to sell!");
-				}
-				return true;
-		}
+			}
+			
+			int index = 0;
+			int remainingItems = convertedAmount;
+			for (ItemStack is : player.getInventory().getContents()) {
+				// Comment Code
+				if (remainingItems > 0) {
+					if (is != null) {
+						if (is.getType().equals(Material.IRON_INGOT)) {
+							if (is.getAmount() > remainingItems) {
+								int difference = is.getAmount() - remainingItems;
+								ItemStack toReplace = is;
+								toReplace.setAmount(difference);
+								player.getInventory().setItem(index, toReplace);
+							}else if(is.getAmount() == remainingItems){
+								remainingItems = 0;
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}else{	
+								//If remainingItems is larger than the stack amount, then we remove the stack, and take away the amount from remainingItems.
+								remainingItems -= is.getAmount(); //6
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}			
+						}
+					}
+				}else{
+					break;
+				}	
+				index++;
+			}	
+	}
 		
 		if (cmd.getName().equalsIgnoreCase("lapissell") && sender instanceof Player) {
 			Player player = (Player) sender;
 			if (args.length == 0) {
-				player.sendMessage("§cIncorrect Usage: §9/lapissell <amount>");
+				player.sendMessage("§cIncorrect Usage: §9/lapissell or /las <amount>");
 				return true;
 			}
-
-				String amount = args [0];
+			
+			
+			String amount = args [0];
+			
+			int convertedAmount = 0;
+			try {
+				convertedAmount = Integer.parseInt(amount);
+			}catch(Exception e) {
+				if (args[0].equalsIgnoreCase("all")) {
+					int stackAmount = 0;
+					for(ItemStack is : player.getInventory().all(lapis).values()) {
+						stackAmount = stackAmount + is.getAmount();
+					}
+					if (stackAmount < convertedAmount) {
+						player.sendMessage("§cYou don't have enough lapis to sell!");
+						return true;
+					}
 					
-				int convertedAmount = Integer.parseInt(amount);
-				
-				int stackAmount = 0;
-				for(ItemStack is : player.getInventory().all(lapis).values()) {
-					stackAmount = stackAmount + is.getAmount();
-				}
-				if (stackAmount < convertedAmount) {
-					player.sendMessage("§cYou don't have enough lapis to sell!");
+					if (player.getInventory().contains(lapis)) {
+						ItemStack lapiss = new ItemStack(lapis);
+						lapiss.setAmount(stackAmount);
+							player.getInventory().removeItem(lapiss);
+							int cashAmount = stackAmount * 2;
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
+					} 		
+					else {
+						player.sendMessage("§6You do not have any ingots to sell!");
+					}
 					return true;
 				}
-				
-				if (player.getInventory().contains(lapis)) {
-					ItemStack lapiss = new ItemStack(Material.INK_SACK, 1, (short) 4);
-					lapiss.setAmount(stackAmount);
-						player.getInventory().removeItem(new ItemStack(lapiss));
-						int cashAmount = stackAmount * 1;
-						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
-				} 
-				
-				else {
-					player.sendMessage("§6You do not have any ingots to sell!");
-				}
+			}
+			
+			int index = 0;
+			int remainingItems = convertedAmount;
+			for (ItemStack is : player.getInventory().getContents()) {
+				// Comment Code
+				if (remainingItems > 0) {
+					if (is != null) {
+						if (is.getType().equals(lapis)) {
+							if (is.getAmount() > remainingItems) {
+								int difference = is.getAmount() - remainingItems;
+								ItemStack toReplace = is;
+								toReplace.setAmount(difference);
+								player.getInventory().setItem(index, toReplace);
+							}else if(is.getAmount() == remainingItems){
+								remainingItems = 0;
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}else{	
+								//If remainingItems is larger than the stack amount, then we remove the stack, and take away the amount from remainingItems.
+								remainingItems -= is.getAmount(); //6
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}			
+						}
+					}
+				}else{
+					break;
+				}	
+				index++;
+			}	
+	}
+
+		if (cmd.getName().equalsIgnoreCase("goldsell") && sender instanceof Player) {
+			Player player = (Player) sender;
+			if (args.length == 0) {
+				player.sendMessage("§cIncorrect Usage: §9/goldsell or /gs <amount>");
 				return true;
-		}
+			}
+			
+			
+			String amount = args [0];
+			
+			int convertedAmount = 0;
+			try {
+				convertedAmount = Integer.parseInt(amount);
+			}catch(Exception e) {
+				if (args[0].equalsIgnoreCase("all")) {
+					int stackAmount = 0;
+					for(ItemStack is : player.getInventory().all(Material.GOLD_INGOT).values()) {
+						stackAmount = stackAmount + is.getAmount();
+					}
+					if (stackAmount < convertedAmount) {
+						player.sendMessage("§cYou don't have enough gold to sell!");
+						return true;
+					}
+					
+					if (player.getInventory().contains(Material.GOLD_INGOT)) {
+							player.getInventory().removeItem(new ItemStack(Material.GOLD_INGOT, stackAmount));
+							int cashAmount = stackAmount * 5;
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
+					} 		
+					else {
+						player.sendMessage("§6You do not have any ingots to sell!");
+					}
+					return true;
+				}
+			}
+			
+			int index = 0;
+			int remainingItems = convertedAmount;
+			for (ItemStack is : player.getInventory().getContents()) {
+				// Comment Code
+				if (remainingItems > 0) {
+					if (is != null) {
+						if (is.getType().equals(Material.GOLD_INGOT)) {
+							if (is.getAmount() > remainingItems) {
+								int difference = is.getAmount() - remainingItems;
+								ItemStack toReplace = is;
+								toReplace.setAmount(difference);
+								player.getInventory().setItem(index, toReplace);
+							}else if(is.getAmount() == remainingItems){
+								remainingItems = 0;
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}else{	
+								//If remainingItems is larger than the stack amount, then we remove the stack, and take away the amount from remainingItems.
+								remainingItems -= is.getAmount(); //6
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}			
+						}
+					}
+				}else{
+					break;
+				}	
+				index++;
+			}	
+	}
 		
+		if (cmd.getName().equalsIgnoreCase("diamondsell") && sender instanceof Player) {
+			Player player = (Player) sender;
+			if (args.length == 0) {
+				player.sendMessage("§cIncorrect Usage: §9/diamondsell or /ds <amount>");
+				return true;
+			}
+			
+			
+			String amount = args [0];
+			
+			int convertedAmount = 0;
+			try {
+				convertedAmount = Integer.parseInt(amount);
+			}catch(Exception e) {
+				if (args[0].equalsIgnoreCase("all")) {
+					int stackAmount = 0;
+					for(ItemStack is : player.getInventory().all(Material.DIAMOND).values()) {
+						stackAmount = stackAmount + is.getAmount();
+					}
+					if (stackAmount < convertedAmount) {
+						player.sendMessage("§cYou don't have enough diamonds to sell!");
+						return true;
+					}
+					
+					if (player.getInventory().contains(Material.IRON_INGOT)) {
+							player.getInventory().removeItem(new ItemStack(Material.DIAMOND, stackAmount));
+							int cashAmount = stackAmount * 6;
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
+					} 		
+					else {
+						player.sendMessage("§6You do not have any ingots to sell!");
+					}
+					return true;
+				}
+			}
+			
+			int index = 0;
+			int remainingItems = convertedAmount;
+			for (ItemStack is : player.getInventory().getContents()) {
+				// Comment Code
+				if (remainingItems > 0) {
+					if (is != null) {
+						if (is.getType().equals(Material.DIAMOND)) {
+							if (is.getAmount() > remainingItems) {
+								int difference = is.getAmount() - remainingItems;
+								ItemStack toReplace = is;
+								toReplace.setAmount(difference);
+								player.getInventory().setItem(index, toReplace);
+							}else if(is.getAmount() == remainingItems){
+								remainingItems = 0;
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}else{	
+								//If remainingItems is larger than the stack amount, then we remove the stack, and take away the amount from remainingItems.
+								remainingItems -= is.getAmount(); //6
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}			
+						}
+					}
+				}else{
+					break;
+				}	
+				index++;
+			}	
+	}
 		
+		if (cmd.getName().equalsIgnoreCase("emeraldsell") && sender instanceof Player) {
+			Player player = (Player) sender;
+			if (args.length == 0) {
+				player.sendMessage("§cIncorrect Usage: §9/emeraldsell or /es <amount>");
+				return true;
+			}
+			
+			
+			String amount = args [0];
+			
+			int convertedAmount = 0;
+			try {
+				convertedAmount = Integer.parseInt(amount);
+			}catch(Exception e) {
+				if (args[0].equalsIgnoreCase("all")) {
+					int stackAmount = 0;
+					for(ItemStack is : player.getInventory().all(Material.EMERALD).values()) {
+						stackAmount = stackAmount + is.getAmount();
+					}
+					if (stackAmount < convertedAmount) {
+						player.sendMessage("§cYou don't have enough emerald to sell!");
+						return true;
+					}
+					
+					if (player.getInventory().contains(Material.IRON_INGOT)) {
+							player.getInventory().removeItem(new ItemStack(Material.EMERALD, stackAmount));
+							int cashAmount = stackAmount * 7;
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "eco give " + player.getName() + " " + cashAmount);
+					} 		
+					else {
+						player.sendMessage("§6You do not have any ingots to sell!");
+					}
+					return true;
+				}
+			}
+			
+			int index = 0;
+			int remainingItems = convertedAmount;
+			for (ItemStack is : player.getInventory().getContents()) {
+				// Comment Code
+				if (remainingItems > 0) {
+					if (is != null) {
+						if (is.getType().equals(Material.EMERALD)) {
+							if (is.getAmount() > remainingItems) {
+								int difference = is.getAmount() - remainingItems;
+								ItemStack toReplace = is;
+								toReplace.setAmount(difference);
+								player.getInventory().setItem(index, toReplace);
+							} else if (is.getAmount() == remainingItems){
+								remainingItems = 0;
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							} else {	
+								//If remainingItems is larger than the stack amount, then we remove the stack, and take away the amount from remainingItems.
+								remainingItems -= is.getAmount(); //6
+								player.getInventory().setItem(index, new ItemStack(Material.AIR));
+							}			
+						}
+					}
+				} else {
+					break;
+			}	
+				index++;
+		}			
+	}
 		
 		return false;
 		
