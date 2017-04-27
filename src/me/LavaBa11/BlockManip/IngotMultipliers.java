@@ -38,13 +38,11 @@ public class IngotMultipliers implements Listener {
 				Bukkit.broadcastMessage("blockBroken 2: " + blockBroken);
 				if (number >= 50) {
 					Bukkit.broadcastMessage("Number 2: " + number);
-					Location loc = e.getBlock().getLocation();
-					World world = e.getPlayer().getWorld();
 					Bukkit.broadcastMessage("ItemStack");
 					ItemStack coal = new ItemStack(Material.COAL);
 					coal.setAmount(10);
 					Bukkit.broadcastMessage("Before Drop");
-					world.dropItem(loc, coal);
+					player.getInventory().addItem(coal);
 					Bukkit.broadcastMessage("After Drop");
 				} else {	
 					
