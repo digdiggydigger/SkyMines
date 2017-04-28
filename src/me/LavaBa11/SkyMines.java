@@ -1,5 +1,6 @@
 package me.LavaBa11;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -28,6 +29,10 @@ import me.LavaBa11.PlayerJoin.PlayerJoin;
 import me.LavaBa11.Rankup.PlayerRankup;
 
 public class SkyMines extends JavaPlugin {
+	
+	ArrayList<String> itemCooldown = new ArrayList<String>(); //This is where we store players who have been put on cooldown.
+	
+	public SkyMines pluginVariable;
 
 	public static Logger logger;
 	
