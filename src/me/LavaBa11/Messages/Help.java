@@ -25,7 +25,7 @@ public class Help implements Listener {
 		sender.sendMessage("§7To find out more information about it,");
 		sender.sendMessage("§7Visit the §9Information §7GUI with the command:");
 		sender.sendMessage("§9/info§7 or for even more information visit our website!");
-		sender.sendMessage("§9Website: §7www.skymines.net/");
+		sender.sendMessage("§9Website: §7skymines.games");
 		
 	}
 }

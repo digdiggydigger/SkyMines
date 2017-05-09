@@ -23,14 +23,14 @@ import me.LavaBa11.SkyMines;
 
 public class MineRegenerator extends BukkitRunnable{
 	
-	private static final double percentOfCoal = .30;
-	private static final double percentOfIron = .30;
+	private static final double percentOfCoal = .20;
+	private static final double percentOfIron = .15;
 	private static final double percentOfGold = .20;
-	private static final double percentOfDiamond = .10;
-	private static final double percentOfEmerald = .10;
+	private static final double percentOfDiamond = .20;
+	private static final double percentOfEmerald = .20;
 	
 	
-	private static final double percentOfLapis = .10;
+	private static final double percentOfLapis = .20;
 	
 	private static boolean hasBeenTwentyMinutes = false;
 	
@@ -84,6 +84,7 @@ public class MineRegenerator extends BukkitRunnable{
 			int goldBlocks = (int) ((double) amount * percentOfGold);
 			int diamondBlocks = (int) ((double) amount * percentOfDiamond);
 			int emeraldBlocks = (int) ((double) amount * percentOfEmerald);
+			int lapisBlocks = (int) ((double) amount * percentOfLapis);
 			
 			int totalBlocks = coalBlocks + ironBlocks + goldBlocks + diamondBlocks + emeraldBlocks;
 			
@@ -118,6 +119,10 @@ public class MineRegenerator extends BukkitRunnable{
 			
 			for (int i = 0; i < emeraldBlocks; i++) {
 				ores.add(Material.EMERALD_ORE);
+			}
+			
+			for (int i = 0; i < lapisBlocks; i++) {
+				ores.add(Material.LAPIS_ORE);
 			}
 			
 			Collections.shuffle(ores);

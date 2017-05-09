@@ -33,3 +33,9 @@ commands:
    virtualanvil:
       description: Opens A Virual Anvil.
       aliases: [va, anvilv, av, vanvil]
+   website:
+      description: The SkyMines Website!
+      aliases: [web]
+   forums:
+      description: The SkyMines Forums!
+      aliases: [forum]

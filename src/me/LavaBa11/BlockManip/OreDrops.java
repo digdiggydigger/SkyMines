@@ -88,7 +88,7 @@ public class OreDrops implements Listener {
 				}
 			}
 			if (player.hasPermission(Permissions.RankY)) {
-				if (number >= 25) {
+				if (number >= 50) {
 					multiplier = 4;
 					amount = 1 * multiplier;
 					coal.setAmount(amount);
@@ -96,10 +96,12 @@ public class OreDrops implements Listener {
 				}
 			} 
 			if (player.hasPermission(Permissions.RankZ)) {
+				if (number >= 75) {
 					multiplier = 4;
 					amount = 1 * multiplier;
 					coal.setAmount(amount);
 					player.getInventory().addItem(coal);
+					}
 				}
 			}
 		

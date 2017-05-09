@@ -29,17 +29,19 @@ public class PlayerJoin implements Listener {
 		
 		if (player.hasPlayedBefore()) {
 			player.sendMessage("                                ");
-			player.sendMessage("§6§l       FORUMS: §7skymines.org/");
-			player.sendMessage("§d§l       STORE: §7store.skymines.org/");
+			player.sendMessage("§9§l       WEBSITE: §7skymines.games/");
+			player.sendMessage("§6§l       FORUMS: §7forums.skymines.games/");
+			player.sendMessage("§d§l       STORE: §7store.skymines.games/");
 			player.sendMessage("              ");
-			player.sendMessage("§7Welcome back §6" + player.getName() + "§7!");
+			player.sendMessage("§7Welcome Back §6" + player.getName() + "§7!");
 	//		player.sendMessage("§7");
 	//		player.sendMessage("§7");
 	//		player.sendMessage("§7");
 		if (!(player.hasPlayedBefore())) {
 			player.sendMessage("                                ");
-			player.sendMessage("§6§l       FORUMS: §7skymines.org/");
-			player.sendMessage("§d§l       STORE: §7store.skymines.org/");
+			player.sendMessage("§9§l       WEBSITE: §7skymines.games/");
+			player.sendMessage("§6§l       FORUMS: §7forums.skymines.games/");
+			player.sendMessage("§d§l       STORE: §7store.skymines.games/");
 			player.sendMessage("              ");
 			player.sendMessage("§7Welcome To SkyMines §6" + player.getName() + "§7!");
 			

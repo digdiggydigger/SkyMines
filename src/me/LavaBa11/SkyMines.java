@@ -107,6 +107,18 @@ public class SkyMines extends JavaPlugin {
 			return true;
 		}
 		
+		if (cmd.getName().equalsIgnoreCase("website") || (cmd.getName().equalsIgnoreCase("web"))) {
+			Player player = (Player) sender;
+			sender.sendMessage("§7Website: §cskymines.games/");
+			return true;
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("forums") || (cmd.getName().equalsIgnoreCase("forum"))) {
+			Player player = (Player) sender;
+			sender.sendMessage("§7Forums: §cforums.skymines.games/");
+			return true;
+		}
+		
 		if (cmd.getName().equalsIgnoreCase("virtualanvil") && sender instanceof Player) {
 			Player player = (Player) sender;			
 			if (player.hasPermission(Permissions.anvil)) {
