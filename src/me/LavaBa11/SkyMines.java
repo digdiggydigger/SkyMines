@@ -1,5 +1,6 @@
 package me.LavaBa11;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -7,10 +8,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -24,11 +28,19 @@ import me.LavaBa11.Messages.Help;
 import me.LavaBa11.Mines.MineListener;
 import me.LavaBa11.Mines.MineLoader;
 import me.LavaBa11.Mines.MineRegenerator;
+import me.LavaBa11.MoneyDrops.MoneyDrop;
+import me.LavaBa11.MoneyDrops.MoneyDropEvents;
 import me.LavaBa11.Permissions.Permissions;
 import me.LavaBa11.PlayerJoin.PlayerJoin;
 import me.LavaBa11.Rankup.PlayerRankup;
+import net.milkbowl.vault.economy.Economy;
 
 public class SkyMines extends JavaPlugin {
+	
+	public static FileConfiguration config;
+	File cFile;
+	
+	public static Economy eco = null;
 	
 	ArrayList<String> itemCooldown = new ArrayList<String>(); //This is where we store players who have been put on cooldown.
 	
@@ -46,6 +58,12 @@ public class SkyMines extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		if (!setupEconomy()) {
+			Bukkit.broadcastMessage("Vault not found!");
+		getConfig().options().copyDefaults(true);
+		saveDefaultConfig();
+		config = getConfig();
+		cFile = new File(getDataFolder(), "config.yml");
 		
 		logger = getLogger();
 		
@@ -79,6 +97,8 @@ public class SkyMines extends JavaPlugin {
 		new LuckyOrbs(this);
 		new LuckyOrbEvents(this);
 		new VirtualAnvil(this);
+		new MoneyDropEvents(this);
+		new MoneyDrop(this);
 		
 		PluginManager pm = getServer().getPluginManager();
 		pm.addPermission(Permissions.admin);
@@ -92,6 +112,7 @@ public class SkyMines extends JavaPlugin {
 		pm.addPermission(Permissions.anvil);
 		
 	}
+	}
 			
 	@Override
 	public void onDisable() {
@@ -104,6 +125,16 @@ public class SkyMines extends JavaPlugin {
 		if (cmd.getName().equalsIgnoreCase("skymines") || (cmd.getName().equalsIgnoreCase("skymine")) && sender instanceof Player) {
 			Player player = (Player) sender;			
 			Help.helpCommand(player);
+			return true;
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("note500") && sender instanceof Player) {
+			Player player = (Player) sender;
+			ItemStack i = new ItemStack(Material.PAPER);
+			ItemMeta im = i.getItemMeta();
+			im.setDisplayName("§b§lBank Note");
+			i.setItemMeta(im);
+			player.getInventory().addItem(i);
 			return true;
 		}
 		
@@ -550,4 +581,16 @@ public class SkyMines extends JavaPlugin {
 	    return (WorldGuardPlugin) plugin;
 	}
 	
+    private boolean setupEconomy() {
+        RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            eco = economyProvider.getProvider();
+        }
+
+        return false;
+    }
+	
+	public static FileConfiguration getConfigFile() {
+	    return config;
+	}
 }

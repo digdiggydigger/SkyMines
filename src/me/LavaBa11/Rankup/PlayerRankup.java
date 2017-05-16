@@ -15,7 +15,5 @@ public class PlayerRankup implements Listener {
 	public static void rankupCommand(CommandSender sender) {
 		Player player = (Player) sender;
 		
-		
 	}
-
 }

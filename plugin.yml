@@ -4,6 +4,8 @@ version: 1.0
 author: LavaBa11, Cloaking_Ocean
 depend: [WorldGuard]
 commands:
+   note500:
+      description: Test Com.
    skymines:
       description: SkyMines Help.
    coalsell:
