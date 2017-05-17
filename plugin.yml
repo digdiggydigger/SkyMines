@@ -5,7 +5,7 @@ author: LavaBa11, Cloaking_Ocean
 depend: [WorldGuard]
 commands:
    note500:
-      description: Test Com.
+      description: Test Note.
    skymines:
       description: SkyMines Help.
    coalsell:
@@ -23,9 +23,6 @@ commands:
    emeraldsell:
       description: Sell Emeralds.
       aliases: [esell, selle, es]
-   lapissell:
-      description: Sell Lapis Luzuli.
-      aliases: [lsell, selll, las]
    luckyorb:
       description: Get A Lucky Orb.
       aliases: [lorb]

@@ -96,7 +96,7 @@ public class LuckyOrbEvents implements Listener {
 		ItemStack lOrb = new ItemStack(Material.SOUL_SAND);
 		ItemMeta lOrbM = lOrb.getItemMeta();
 		lOrbM.setDisplayName("§c§lLucky Orb");
-		lOrbM.setLore(Arrays.asList("§7Place this on a §6§nGold Block§7 to uncover,", "§7One of its many, many rare rewards!"));
+		lOrbM.setLore(Arrays.asList("§7Place this on a §6§nGold Block§7 to uncover,", "§7One of its many, rare rewards!"));
 		lOrb.setItemMeta(lOrbM);
 		
 		Block block = e.getBlock();
@@ -150,30 +150,12 @@ public class LuckyOrbEvents implements Listener {
 				}
 			} else {
 				e.setCancelled(true);
+				player.sendMessage("§9Place this on a §6Gold Block §9to activate it's powers!");
 			}
-		}	
+		}	 else {
+			e.setCancelled(true);
+		}
 	}
-	
-	 @EventHandler
-	    public void onEntityTarget(EntityTargetEvent e) {
-		 	Entity ent = e.getEntity();
-	        if (ent instanceof Zombie) {
-	        	e.setCancelled(true);
-	            Bukkit.broadcastMessage("NO");
-	        } 
-	        if (!(ent.getType().equals(EntityType.ZOMBIE))) {
-	        	Bukkit.broadcastMessage("TYPE");
-	      }
-	 }
-	 
-//	 @EventHandler
-//	 public void onZombieSpawn(EntitySpawnEvent e) {
-//		 Entity ent = e.getEntity();
-//		 Location entL = ent.getLocation();
-//		 if (ent.getType().equals(EntityType.ZOMBIE)) {
-//			 Bukkit.getWorld("world").spawnEntity(entL, EntityType.ZOMBIE);
-//		 }
-//	 }
 	 
 	 @EventHandler
 	 public void entityBurn(EntityCombustEvent e) {
